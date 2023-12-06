@@ -1,0 +1,67 @@
+{
+    "Non-alcoholic": {
+      "Water": {},
+      "Sparkling Water": {},
+      "Coca Cola": {},
+      "Orange Juice": {},
+      "Ginger Beer": {},
+      "Pineapple Juice": {},
+      "Tonic": {}
+    },
+    "Alcoholic": {
+      "Beers": {
+        "Beer from Tap": {},
+        "Apple Bandit": {}
+      },
+      "Wines": {
+        "White Wine": {},
+        "Rose Wine": {},
+        "Champagne": {
+          "Unlockable": true
+        }
+      },
+      "Cocktails": {
+        "Gin and Tonic": {
+          "Ingredients": {
+            "Gin": {},
+            "Tonic": {},
+            "Lime": {}
+          }
+        },
+        "Cuba Libre": {
+          "Ingredients": {
+            "Rum": {},
+            "Coca Cola": {},
+            "Lime": {}
+          }
+        },
+        "Moscow Mule": {
+          "Ingredients": {
+            "Vodka": {},
+            "Ginger Beer": {},
+            "Lime": {}
+          }
+        },
+        "Pina Colada": {
+          "Ingredients": {
+            "White Rum": {},
+            "Coconut Cream": {},
+            "Pineapple Juice": {}
+          }
+        },
+        "Daiquiri": {
+          "Ingredients": {
+            "White Rum": {},
+            "Simple Syrup": {},
+            "Lime Juice": {}
+          }
+        },
+        "Screwdriver": {
+          "Ingredients": {
+            "Vodka": {},
+            "Orange Juice": {}
+          }
+        }
+      }
+    }
+  }

@@ -1,0 +1,32 @@
+Non-alcoholic:
+    Water,
+    Sparkling Water,
+    Coca Cola,
+    Orange juice,
+    Ginger Beer,
+    Pineapple Juice,
+    Tonic
+
+
+Alcoholic:
+    Beers:
+        Beer from tap,
+        Apple bandit,
+    Wines:
+        White Wine,
+        Rose Wine,
+        Champaigne(unlockable item),
+    Cocktails:
+        Gin and Tonic,
+        Cuba Libre,
+        Moscow Mule,
+        Pina colada,
+        Daiquiri,
+        Screwdriver,
+
+
+
+
+
+
+
