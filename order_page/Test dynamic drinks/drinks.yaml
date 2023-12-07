@@ -1,0 +1,134 @@
+categories:
+  - Non-alcoholic:
+      icon: "non-alc-icon.png" # Some sort of link to an image.
+  - Beers:
+      icon: "beer-icon.png"
+  - Wines:
+      icon: "wine-icon.png"
+  - Cocktails:
+      icon: "cocktail-icon.png"
+  - Shots:
+      icon: "shots-icon.png"
+
+drinks:
+  - Water:
+      category: Non-alcoholic
+      description: "For when you're lame"
+      price: 0.0
+  - Sparkling Water:
+      category: Non-alcoholic
+      description: "Lame but with bubbles"
+      price: 0.5
+  - Coca Cola:
+      category: Non-alcoholic
+      description: "The healthy coke alternative"
+      price: 0.5
+  - Orange Juice:
+      category: Non-alcoholic
+      description: "'Freshly' squeezed"
+      price: 0.5
+  - Ginger Beer:
+      category: Non-alcoholic
+      description: "It's not rusty, it's gingah"
+      price: 0.5
+  - Pineapple Juice:
+      category: Non-alcoholic
+      description: "Tropical goodness in a glass"
+      price: 0.5
+  - Tonic:
+      category: Non-alcoholic
+      description: "Only here bc of gin and tonic"
+      price: 5.0
+  - Draught Beer:
+      category: Beers
+      description: "Atleast it's not Heineken"
+      price: 0.5
+  - Apple Bandit:
+      category: Beers
+      description: "What does the fox say?"
+      price: 0.5
+  - White Wine:
+      category: Wines
+      description: "TODO"
+      price: 0.5
+  - Red Wine:
+      category: Wines
+      description: "TODO"
+      price: 0.5
+  - Rose Wine:
+      category: Wines
+      description: "TODO"
+      price: 0.5
+  - Champagne:
+      category: Wines
+      description: "TODO"
+      price: 1.0
+      unlocks at: "23:30"
+  - Gin and Tonic:
+      category: Cocktails
+      description: "TODO"
+      price: 1.0
+      Ingredients:
+        - Gin:
+            parts: 1
+        - Tonic:
+            parts: 2
+        - Lime:
+  - Cuba Libre:
+      category: Cocktails
+      description: "TODO"
+      price: 1.0
+      Ingredients:
+        - Dark Rum:
+            parts: 1
+        - Coca Cola:
+            parts: 2
+        - Lime:
+  - Moscow Mule:
+      category: Cocktails
+      description: "TODO"
+      price: 1.0
+      Ingredients:
+        - Vodka:
+            parts: 2
+        - Ginger Beer:
+            parts: 5
+        - Bitter:
+            parts: 1 # Special bitters are in teaspoons
+        - Lime:
+  - Pina Colada:
+      category: Cocktails
+      description: "TODO"
+      price: 1.0
+      Ingredients:
+        - White Rum:
+            parts: 2
+        - Pineapple Juice:
+            parts: 2
+        - Coconut Milk:
+            parts: 2
+        - Condensed Milk:
+            parts: 1
+  - Daiquiri:
+      category: Cocktails
+      description: "TODO"
+      price: 1.0
+      Ingredients:
+        - White Rum:
+            parts: 3
+        - Sugar Syrup:
+            parts: 1
+        - Lime Juice:
+            parts: 2
+        - Lime:
+  - Screwdriver:
+      category: Cocktails
+      description: "TODO"
+      price: 1.0
+      Ingredients:
+        - Vodka:
+            parts: 1
+        - Orange Juice:
+            parts: 3
+        - Orange:
+  
