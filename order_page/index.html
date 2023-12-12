@@ -16,7 +16,7 @@
         #app {
             background-color: #F1F3F4;
             width: 100vw;
-            height:100vh;
+            height: 100%;
             margin: 0%;
             display: flex;
             justify-content: center;
@@ -26,16 +26,23 @@
         #header {
             background: #3F4145;
             width: 100%;
-            height: 114px;
+            height: 7.125rem;
             display: block;
             top: 0;
-            position: absolute;
+            position: fixed;
+        }
+        #header h1 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
         }
         h1 {
             color: #FFF;
             text-align: center;
             font-family: League Spartan;
-            font-size: 64px;
+            font-size: 4rem;
             font-style: normal;
             font-weight: 700;
             line-height: normal;
@@ -47,10 +54,9 @@
         #slider {
             background-color: #D9D9D9;
             display: flex;
-            position: absolute;
             width: 100%;
-            height: 100px;
-            bottom: 137px;
+            height: 6.25rem;
+            bottom: 8.5625rem;
             align-items: center;
             flex-wrap: nowrap;
             justify-content: space-evenly;
@@ -59,10 +65,10 @@
         #footer {
             background-color: #4285F4;
             width: 100%;
-            height: 137px;
+            height: 8.5625rem;
             display: block;
             bottom: 0;
-            position: absolute;}
+        }
         .option {
             color: #3F4145;
             text-align: center;
@@ -75,7 +81,6 @@
             width: 90vw;
             height: 10vh;
             border-radius: 1.25rem;
-            margin: 3.25rem;
             box-sizing: border-box;
             display: flex;
             justify-content: space-between;
@@ -130,9 +135,45 @@
             margin-left: 2rem;
             flex-wrap: nowrap;
         }
+        .bottom {
+            position: fixed;
+        }
+        #menu {
+            display: grid;
+            top: 7.25rem;
+            bottom: 14.8125rem;
+            position: fixed;
+            overflow-y: scroll;
+            padding: 3.25rem;
+            grid-gap: 3.25rem;
+        }
+        #user_info {
+            width: 90vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            color: gray;
+            font-family: League Spartan;
+            flex-direction: column;
+
+        }
+        #user_info #logout {
+            font-size: 5rem;
+            color: #3F4145;
+            font-family: League Spartan;
+            font-weight: 700;
+            margin-top: 1rem;
+            text-decoration: underline;
+            }
+        #user_info p {
+            margin: 1rem;
+            font-size: 3rem;
+        }
     </style>
 </head>
 <body>
+
 <div id="app">
     <div id="header">
         <h1>Happy New Year, {name}!</h1>
@@ -194,16 +235,65 @@
             <img src="static/0_0.png" alt="beer">
             <div class="drink_button">0.5</div>
         </div>
+        <div class="drink">
+            <div class="title_containter">
+                <div class="drink_title">Other</div>
+                <div class="drink_description">Just for scrolling</div>
+            </div>
+            <img src="static/0_0.png" alt="beer">
+            <div class="drink_button">0.5</div>
+        </div>
+        <div class="drink">
+            <div class="title_containter">
+                <div class="drink_title">Other</div>
+                <div class="drink_description">Just for scrolling</div>
+            </div>
+            <img src="static/0_0.png" alt="beer">
+            <div class="drink_button">0.5</div>
+        </div>
+        <div class="drink">
+            <div class="title_containter">
+                <div class="drink_title">Other</div>
+                <div class="drink_description">Just for scrolling</div>
+            </div>
+            <img src="static/0_0.png" alt="beer">
+            <div class="drink_button">0.5</div>
+        </div>
+        <div class="drink">
+            <div class="title_containter">
+                <div class="drink_title">Other</div>
+                <div class="drink_description">Just for scrolling</div>
+            </div>
+            <img src="static/0_0.png" alt="beer">
+            <div class="drink_button">0.5</div>
+        </div>
+            <div id="user_info">
+                <div>
+                    <p>Currently logged in as {name}</p>
+                    <p>Since: <span id="time"></span></p>
+                </div>
+                <div id="logout" onclick="logout()">log out</div>
+            </div>
+        </div>
     </div>
-    <div id="slider">
+    <div id="slider" class="bottom">
         <div class="option">Beer</div>
         <div class="option">Wine </div>
         <div class="option">Cocktails</div>
         <div class="option">0.0</div>
     </div>
-    <div id="footer">
+    <div id="footer" class="bottom">
         <h1>Go to order ({} tasks)</h1>
     </div>
 </div>
+<script>
+    const now = new Date();
+    const currentDateTime = now.toLocaleString();
+    document.getElementById("time").innerHTML = currentDateTime;
+
+    function logout() {
+        window.location.href = "http://localhost:5500/order_page/redirect_log.html";
+    }
+</script>
 </body>
 </html>
