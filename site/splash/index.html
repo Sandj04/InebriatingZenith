@@ -97,7 +97,7 @@
             margin: 4rem auto 0 auto;
             text-align: center;
         }
-        input[type="text"] {
+        input[type="number"] {
             background-color: transparent;
             border: none;
             border-bottom: 0.31275rem solid #3f41454d;
@@ -106,12 +106,21 @@
             font-weight: 500;
             margin: 0 1rem;
             width: 4rem;
+            /*max-width: max-content;*/
             text-align: center;
             font-family: League Spartan;
             color: #3F4145;
         }
-        input[type="text"]:focus {
+        input[type="number"]:focus {
             outline: none;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+        input[type=number] {
+        -moz-appearance: textfield;
         }
     </style>
 </head>
@@ -126,12 +135,12 @@
             <div class="content" id="superlog">Enter your code</div>
             <hr>
             <form name="codeInput">
-                <input class="inputs" type="text" pattern="[0-9]" maxlength="1">
-                <input class="inputs" type="text" pattern="[0-9]" maxlength="1">
-                <input class="inputs" type="text" pattern="[0-9]" maxlength="1">
-                <input class="inputs" type="text" pattern="[0-9]" maxlength="1">
-                <input class="inputs" type="text" pattern="[0-9]" maxlength="1">
-                <input class="inputs" id="lastInput" type="text" pattern="[0-9]" maxlength="1">
+                <input class="inputs" type="number" pattern="[0-9]" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
+                <input class="inputs" type="number" pattern="[0-9]" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
+                <input class="inputs" type="number" pattern="[0-9]" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
+                <input class="inputs" type="number" pattern="[0-9]" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
+                <input class="inputs" type="number" pattern="[0-9]" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
+                <input class="inputs" id="lastInput" type="number" pattern="[0-9]" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
             </form>
             <div class="content" id="code"></div>
         </div>    
