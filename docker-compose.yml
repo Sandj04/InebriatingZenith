@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=db
+    volumes:
+      - "./test_db:/var/lib/mysql"
+  db_admin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
+      - PMA_USER=admin
+      - PMA_PASSWORD=password
+
+volumes:
+  test_db:
