@@ -110,6 +110,7 @@
             text-align: center;
             font-family: League Spartan;
             color: #3F4145;
+            caret-color: transparent;
         }
         input[type="number"]:focus {
             outline: none;
@@ -123,6 +124,13 @@
         -moz-appearance: textfield;
         }
     </style>
+    <script>
+    function focusFirst() {
+        var element = document.getElementById('firstInput');
+        element.focus();
+        setTimeout(function () { element.focus(); }, 1);
+    }
+    </script>
 </head>
 <body>
     <div id="app">
@@ -131,11 +139,11 @@
             <div class="content" id="big">PARTY?</div>
             <div class="content" id="button" onclick="swap()">Log In Here</div>
         </div>
-        <div id="login">
+        <div id="login" onload="focusFirst()">
             <div class="content" id="superlog">Enter your code</div>
             <hr>
             <form name="codeInput">
-                <input class="inputs" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
+                <input class="inputs" id="firstInput" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)" autofocus >
                 <input class="inputs" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
                 <input class="inputs" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
                 <input class="inputs" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
@@ -163,6 +171,11 @@ function swap() {
 
 }
 
+function focusFirst() {
+    var element = document.getElementById('firstInput');
+    element.focus();
+    setTimeout(function () { element.focus(); }, 1);
+}
 
 var inputs = document.querySelectorAll('.inputs');
 
@@ -195,7 +208,22 @@ inputs.forEach(function(input, index) {
     });
 });
 
+window.onload = function() {
+    var inputs = document.querySelectorAll('form[name="codeInput"] .inputs');
 
+    inputs.forEach((input, index) => {
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Backspace' && this.value === '') {
+                e.preventDefault();
+                var previousInput = inputs[index - 1];
+                if (previousInput) {
+                    previousInput.focus();
+                    previousInput.value = '';
+                }
+            }
+        });
+    });
+}
 
 </script>
 </body>
