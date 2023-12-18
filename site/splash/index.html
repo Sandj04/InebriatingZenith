@@ -1,136 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Order</title>
+    <title>🎆Happy new year!🎆</title>
     <meta name="description" content="Happy new year!">
-    <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;500;600;700;800;900&display=swap');
-        /*@font-face { font-family: League Spartan; src: url('../static/LeagueSpartan-Regular.ttf') format('truetype'); } 
-        @font-face { font-family: League Spartan; font-weight: bold; src: url('../static/LeagueSpartan-Bold.ttf') format('truetype');}
-        @font-face { font-family: League Spartan; font-weight: light; src: url('../static/LeagueSpartan-Light.ttf') format('truetype');}*/
-
-        body {
-            background-color: #F1F3F4;
-            margin: 0;
-            user-select: none;
-        }
-        #app {
-            background-color: #F1F3F4;
-            width: 100vw;
-            height: 100vh;
-            margin: 0%;
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .content {
-            font-family: League Spartan;
-            font-size: 10vw;
-            color: #3F4145;
-        }
-        #super {
-            font-weight: 500;
-            font-size: 6rem;
-            padding-bottom: 0.5rem;
-        }
-        #big {
-            font-weight: 700;
-            font-size: 9.375rem;
-        }
-        #button {
-            font-weight: 700;
-            font-size: 3rem;
-            background-color: #4285F4;
-            color: #F1F3F4;
-            padding: 2rem 4rem;
-            border-radius: 1.25rem;
-            margin-top: 5rem;
-            
-            transition: 0.25s;
-        }
-        #splash {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            justify-content: center;
-            transition: 0.5s;
-        }
-        #login {
-            height: 100%;
-            width: 70vw;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            justify-content: center;
-            display: none;
-            transition: 1s;
-            transform: scale(0);
-        }
-        #login #superlog{
-            font-weight: 700;
-            padding-bottom: 4.56rem;
-            margin: 0;
-        }
-        #login hr{
-            width: 100%;
-            height: 0.3175rem;
-            color: #3f41454d;
-            background-color: #3f41454d;
-            border: 0;
-            margin: 0;
-        }
-        #login #code {
-            color: #3f41454d;
-            font-weight: 700;
-            padding-top: 4.56rem;
-            margin: 0;
-        }
-        form {
-            display: table;
-            margin: 4rem auto 0 auto;
-            text-align: center;
-        }
-        input[type="number"] {
-            background-color: transparent;
-            border: none;
-            border-bottom: 0.31275rem solid #3f41454d;
-            display: inline-block;
-            font-size: 6rem;
-            font-weight: 500;
-            margin: 0 1rem;
-            width: 4rem;
-            /*max-width: max-content;*/
-            text-align: center;
-            font-family: League Spartan;
-            color: #3F4145;
-            caret-color: transparent;
-        }
-        input[type="number"]:focus {
-            outline: none;
-        }
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-        }
-        input[type=number] {
-        -moz-appearance: textfield;
-        }
-    </style>
-    <script>
-    function focusFirst() {
-        var element = document.getElementById('firstInput');
-        element.focus();
-        setTimeout(function () { element.focus(); }, 1);
-    }
-    </script>
+    <link rel="icon" href="../static/favicon.ico">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="app">
@@ -139,17 +13,19 @@
             <div class="content" id="big">PARTY?</div>
             <div class="content" id="button" onclick="swap()">Log In Here</div>
         </div>
-        <div id="login" onload="focusFirst()">
+        <div id="login">
             <div class="content" id="superlog">Enter your code</div>
             <hr>
-            <form name="codeInput">
-                <input class="inputs" id="firstInput" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)" autofocus >
-                <input class="inputs" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
-                <input class="inputs" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
-                <input class="inputs" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
-                <input class="inputs" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
-                <input class="inputs" id="lastInput" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
-            </form>
+            <div id="formContainer">
+                <form name="codeInput">
+                    <input class="inputs" id="firstInput" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)" autofocus >
+                    <input class="inputs" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
+                    <input class="inputs" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
+                    <input class="inputs" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
+                    <input class="inputs" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
+                    <input class="inputs" id="lastInput" type="number" pattern="\d*" maxlength="1" oninput="this.value=this.value.slice(0,this.maxLength)">
+                </form>
+            </div>
             <div class="content" id="code"></div>
         </div>    
     </div>
@@ -171,11 +47,6 @@ function swap() {
 
 }
 
-function focusFirst() {
-    var element = document.getElementById('firstInput');
-    element.focus();
-    setTimeout(function () { element.focus(); }, 1);
-}
 
 var inputs = document.querySelectorAll('.inputs');
 
