@@ -1,0 +1,16 @@
+{
+    "name": "Happy New Year",
+    "short_name": "NewYear",
+    "description": "Happy new year!",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#F1F3F4",
+    "theme_color": "#4285F4",
+    "icons": [
+        {
+            "src": "/static/favicon.ico",
+            "sizes": "64x64",
+            "type": "image/x-icon"
+        }
+    ]
+}
