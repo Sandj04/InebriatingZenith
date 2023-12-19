@@ -4,10 +4,10 @@ from sqlalchemy.orm import sessionmaker
 
 # Local imports.
 from src.db.schemas import Base, User
+import src.utils.config
 
-DB_CONNECTION_STRING = 'mysql+pymysql://admin:password@127.0.0.1:3306/db'
 db_engine = sqlalchemy.create_engine(
-    DB_CONNECTION_STRING,
+    src.utils.config.Config.get_database_connection_string(),
     echo=True, # Set to True to see SQL queries in the console.
 )
 
