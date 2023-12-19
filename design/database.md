@@ -30,34 +30,43 @@ erDiagram
     }
     USERS }|--|{ CARTS : Buying
 
-    CARTITEMS {
+    CART_ITEMS {
         int id
         int cart
         int item
     }
-    CARTS }|--|{ CARTITEMS : Storage
+    CARTS }|--|{ CART_ITEMS : Storage
 
-    ITEMS {
+    PRODUCTS {
         int id
         string name
         string description
+        int category
         int price
+        string ingredients
         bool unlocked
     }
-    CARTITEMS }|--|{ ITEMS : Identification
+    CART_ITEMS }|--|{ PRODUCTS : Identification
 
-    USERTASKS {
+    CATEGORY {
+        int id
+        string name
+        string icon_path
+    }
+    PRODUCTS }|--|{ CATEGORY : Identification
+
+    USER_TASKS {
         int id
         int task
         int user
         bool completed
     }
-    USERS }|--|{ USERTASKS : Rewards
+    USERS }|--|{ USER_TASKS : Rewards
 
     TASKS {
         int id
         string description
         int reward
     }
-    USERTASKS }|--|{ TASKS : Identification
+    USER_TASKS }|--|{ TASKS : Identification
 ```
