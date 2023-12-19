@@ -2,6 +2,10 @@
 
 ## Main Database (MySQL) Design
 
+The database stores almost all data. It is used for authentication users and admins and stores the cart / order information for each user. It als stores data about available products and their categories.
+
+Furthermore, the credentials and authentication for admins / bartenders are stored in here.
+
 ```mermaid
 ---
 title: Main Database (MySQL) Design
@@ -17,7 +21,7 @@ erDiagram
     SESSIONS {
         int id
         int user
-        string token
+        string hashed_token
     }
     USERS }|--|{ SESSIONS : Authentication
 
@@ -44,7 +48,7 @@ erDiagram
         int category
         int price
         string ingredients
-        bool unlocked
+        datetime unlock_time
     }
     CART_ITEMS }|--|{ PRODUCTS : Identification
 
@@ -69,4 +73,18 @@ erDiagram
         int reward
     }
     USER_TASKS }|--|{ TASKS : Identification
+
+    ADMINS {
+        int id
+        string username
+        string hashed_password
+    }
+
+    ADMIN_SESSIONS {
+        int id
+        int admin
+        string hashed_token
+    }
+
+    ADMINS }|--|{ ADMIN_SESSIONS : Authentication
 ```
