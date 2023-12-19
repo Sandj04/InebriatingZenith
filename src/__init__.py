@@ -24,27 +24,24 @@ def index() -> str:
     return "Hello, world!"
 
 def init_dev_server() -> None:
-    try:
-        # Initialize connection to database.
-        db_conn = db_engine.connect()
-        
-        # Create all tables using the metadata.
-        Base.metadata.create_all(db_engine)
-        
-        # Create a session.
-        SessionMaker = sessionmaker(bind=db_engine)
-        db_session = SessionMaker()
-        # app.run(
-        #     port=5000,   
-        # )
-        
-        db_session.add(User(username="test", code=123456, balance=10000))
-        db_session.commit()
-        
-        db_conn.close() # CLose the database connection.
-        db_engine.dispose() # Dispose of the database engine.
-    except KeyboardInterrupt:
-        print("Stopping the server...")
-        db_conn.close() # CLose the database connection.
-        db_engine.dispose() # Dispose of the database engine.
-        print("Server stopped.")
+    
+    # Initialize connection to database.
+    db_conn = db_engine.connect()
+    
+    # Create all tables using the metadata.
+    Base.metadata.create_all(db_engine)
+    
+    # Create a session.
+    SessionMaker = sessionmaker(bind=db_engine)
+    db_session = SessionMaker()
+    # app.run(
+    #     port=5000,   
+    # )
+    
+    db_session.add(User(username="test", code=123456, balance=10000))
+    db_session.commit()
+    
+    print("Stopping the server...")
+    db_conn.close() # CLose the database connection.
+    db_engine.dispose() # Dispose of the database engine.
+    print("Server stopped.")

@@ -212,9 +212,10 @@ class Admin(Base):
     )  # The ID of an admin.
     username: Mapped[str] = sqlalchemy.Column(
         sqlalchemy.String(30),
-        nullable=False, # TODO Index this column.
+        nullable=False,
+        unique=True,
     )  # The username of the admin.
-    password: Mapped[str] = sqlalchemy.Column(
+    hashed_password: Mapped[str] = sqlalchemy.Column(
         sqlalchemy.String(255),
         nullable=False,
     )  # The password of the admin.
@@ -231,7 +232,7 @@ class AdminSession(Base):
         primary_key=True,
         autoincrement="auto",
     )  # The ID of an admin session.
-    hashed_admin: Mapped[int] = sqlalchemy.Column(
+    admin: Mapped[int] = sqlalchemy.Column(
         sqlalchemy.ForeignKey("admins.id"),
         nullable=False,
     )  # The ID of the admin.

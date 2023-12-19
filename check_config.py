@@ -22,7 +22,7 @@ def check_drinks(file_path: pathlib.Path) -> bool:
                 raise ValueError("Category name must not be empty!")
             if not "icon" in category:
                 raise KeyError(f"No icon defined in category '{category}'!")
-            
+    return True
         
 
 if __name__ == "__main__":
