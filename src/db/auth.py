@@ -46,7 +46,7 @@ def session_valid(db_session: Session, user_id: int, token: str) -> bool:
     This is the main function used for authentication using a session token.
     """
     hashed_token = utils.auth.hash_token(token)
-    return ( # TODO Should we retrieve the session token and check it on the server?
+    return (  # TODO Should we retrieve the session token and check it on the server?
         db_session.query(auth_Session)
         .filter(auth_Session.user == user_id, auth_Session.hashed_token == hashed_token)
         .count()
@@ -119,14 +119,18 @@ def create_admin_session(db_session: Session, admin_username: str) -> AdminSessi
     db_session.commit()
     return new_session
 
+
 def admin_session_valid(db_session: Session, admin_username: str, token: str) -> bool:
     """Returns True if a session token and admin_username are valid.
     This is the main function used for admin authentication using a session token.
     """
     hashed_token = utils.auth.hash_token(token)
-    return ( # TODO Should we retrieve the session token and check it on the server?
+    return (  # TODO Should we retrieve the session token and check it on the server?
         db_session.query(auth_Session)
-        .filter(auth_Session.admin == admin_username, auth_Session.hashed_token == hashed_token)
+        .filter(
+            auth_Session.admin == admin_username,
+            auth_Session.hashed_token == hashed_token,
+        )
         .count()
         == 1
     )

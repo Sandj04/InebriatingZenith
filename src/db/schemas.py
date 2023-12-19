@@ -33,6 +33,8 @@ class User(Base):
 class Session(Base):
     __tablename__ = "sessions"
 
+    # TODO: Add expiry to sessions.
+
     id: Mapped[int] = sqlalchemy.Column(
         sqlalchemy.Integer,
         primary_key=True,
@@ -44,7 +46,7 @@ class Session(Base):
     )  # The ID of the user.
     hashed_token: Mapped[str] = sqlalchemy.Column(
         sqlalchemy.String(30),
-        nullable=False, # TODO Index this column.
+        nullable=False,  # TODO Index this column.
     )  # The token of the user's session.
 
     def __repr__(self) -> str:
@@ -181,6 +183,7 @@ class UserTask(Base):
     def __repr__(self) -> str:
         return f"<UserTask(id={self.id}, user={self.user}, task={self.task}, completed={self.completed})>"
 
+
 class Task(Base):
     __tablename__ = "tasks"
 
@@ -221,7 +224,9 @@ class Admin(Base):
     )  # The password of the admin.
 
     def __repr__(self) -> str:
-        return f"<Admin(id={self.id}, username={self.username}, password={self.password})>"
+        return (
+            f"<Admin(id={self.id}, username={self.username}, password={self.password})>"
+        )
 
 
 class AdminSession(Base):
@@ -238,9 +243,8 @@ class AdminSession(Base):
     )  # The ID of the admin.
     hashed_token: Mapped[str] = sqlalchemy.Column(
         sqlalchemy.String(30),
-        nullable=False, # TODO Index this column.
+        nullable=False,  # TODO Index this column.
     )  # The token of the admin's session.
 
     def __repr__(self) -> str:
         return f"<AdminSession(id={self.id}, admin={self.admin}, hashed_token={self.hashed_token})>"
-    
