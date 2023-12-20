@@ -82,10 +82,19 @@ inputs.forEach(function(input, index) {
                             .join('');
 
                         var codeElement = document.getElementById('code');
-                        if (codeElement) {
-                            codeElement.innerHTML = 'Code: ' + formValues;
+                        if (formValues === '000000') {
+                            codeElement.innerHTML = 'Welcome {name}!';
+                            setTimeout(() => {  
+                                window.location.href = "../order_page";
+                            }, 2000);
+                        } else {
+                            codeElement.innerHTML = 'Wrong code!';
                         }
                     }
+                }
+                // Check if the last input is filled
+                if (inputs[inputs.length - 1].value !== '') {
+                    inputs[inputs.length - 1].blur();
                 }
             } else if (nextInput && nextInput.classList.contains('inputs')) {
                 // Focus on the next input with class 'inputs'

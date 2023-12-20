@@ -96,7 +96,8 @@ body {
     padding-top: 4.56rem;
     margin: 0;
     position: fixed;
-    bottom: 2rem;
+    bottom: 7.5rem;
+    min-width: max-content;
 }
 
 form {
@@ -114,6 +115,11 @@ form {
     -webkit-flex-wrap: nowrap; /* Safari */
     flex-wrap: nowrap;
     
+}
+
+input[type="number"]:focus {
+    outline: none;
+    scale: 1.1;
 }
 
 input[type="number"] {
@@ -146,4 +152,21 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
     -moz-appearance: textfield;
+}
+
+
+
+
+
+
+@media only screen and (orientation: landscape) {
+    #splash, #login {
+        display: none !important;
+    }
+
+    #app {
+        background-image: url('../static/LandscapeWarning.png') !important;
+        display: block !important;
+        background-position: center !important;
+    }
 }
