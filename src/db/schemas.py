@@ -134,7 +134,7 @@ class Product(Base):
     )  # The ingredients of the product. #TODO make this a json representation of a list of ingredients.
     unlock_time: Mapped[datetime] = sqlalchemy.Column(
         sqlalchemy.DateTime,
-        nullable=False,
+        nullable=True,
     )  # The time at which the product is unlocked.
 
     def __repr__(self) -> str:

@@ -3,7 +3,8 @@ import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 
 # Local imports.
-from src.db.schemas import Base, User
+from src.db.schemas import Base
+from src.db.products import load_products_from_yaml
 import src.utils.config
 
 db_engine = sqlalchemy.create_engine(
@@ -33,12 +34,11 @@ def init_dev_server() -> None:
     # Create a session.
     SessionMaker = sessionmaker(bind=db_engine)
     db_session = SessionMaker()
-    # app.run(
-    #     port=5000,
-    # )
+    
+    load_products_from_yaml(db_session)
 
-    db_session.add(User(username="test", code=123456, balance=10000))
-    db_session.commit()
+    # db_session.add(User(username="test", code=123456, balance=10000))
+    # db_session.commit()
 
     print("Stopping the server...")
     db_conn.close()  # CLose the database connection.
