@@ -10,7 +10,7 @@ categories:
   Shots:
     icon: "shots-icon.png"
 
-drinks:
+products:
   Water:
     category: Non-alcoholic
     description: "For when you're lame"

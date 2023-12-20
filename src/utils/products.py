@@ -22,7 +22,7 @@ class ProductCategory:
         self.products.append(product)
 
     def __repr__(self) -> str:
-        return f"DrinkCategory(name: {self.name}, icon_path: {self.icon_path}, products: [{len(self.products)} products...])"
+        return f"ProductCategory(name: {self.name}, icon_path: {self.icon_path}, products: [{len(self.products)} products...])"
 
 
 class Product:
@@ -69,7 +69,7 @@ class Product:
         return self.price / 100
 
     def __repr__(self) -> str:
-        return f"Drink(name: {self.name}, desc: {self.description[:20]}, price: {self.real_price}, ingredients: [{len(self.__ingredients)}], unlocks_at: {self.unlock_time})"
+        return f"Product(name: {self.name}, desc: {self.description[:20]}, price: {self.real_price}, ingredients: [{len(self.__ingredients)}], unlocks_at: {self.unlock_time})"
 
     @property
     def ingredients(self) -> dict[str, int]:
@@ -92,7 +92,7 @@ def import_products(filepath: pathlib.Path) -> list[ProductCategory]:
     for cat_name, cat_data in data["categories"].items():
         categories[cat_name] = ProductCategory(cat_name, cat_data["icon"])
 
-    for product_name, product_data in data["drinks"].items():
+    for product_name, product_data in data["products"].items():
         cur_product = Product(
             product_name,
             product_data["description"],
@@ -110,7 +110,7 @@ def import_products(filepath: pathlib.Path) -> list[ProductCategory]:
 
 
 if __name__ == "__main__":
-    data = import_products(pathlib.Path("./drinks.yaml"))
+    data = import_products(pathlib.Path("./products.yml"))
     for cat in data:
         print(cat)
         for dr in cat.products:

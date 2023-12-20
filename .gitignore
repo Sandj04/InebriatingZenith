@@ -1,6 +1,7 @@
 # Project test files
 test_db/
 .vscode/
+products.yml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
