@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;500;600;700;800;900&display=swap');
+/*@font-face { font-family: League Spartan; src: url('../static/LeagueSpartan-Regular.ttf') format('truetype'); } 
+@font-face { font-family: League Spartan; font-weight: bold; src: url('../static/LeagueSpartan-Bold.ttf') format('truetype');}
+@font-face { font-family: League Spartan; font-weight: light; src: url('../static/LeagueSpartan-Light.ttf') format('truetype');}*/
+
+html, body {margin: 0; height: 100%; overflow: hidden} /* Prevents scrolling on safari */
+
+body {
+    background-color: #F1F3F4;
+    margin: 0;
+    user-select: none;
+}
+
+#app {
+    background-color: #F1F3F4;
+    width: 100vw;
+    height: 100vh;
+    margin: 0%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.content {
+    font-family: League Spartan;
+    font-size: 10vw;
+    color: #3F4145;
+}
+
+#super {
+    font-weight: 500;
+    font-size: 6rem;
+    padding-bottom: 0.5rem;
+}
+
+#big {
+    font-weight: 700;
+    font-size: 9.375rem;
+}
+
+#button {
+    font-weight: 700;
+    font-size: 3rem;
+    background-color: #4285F4;
+    color: #F1F3F4;
+    padding: 2rem 4rem;
+    border-radius: 1.25rem;
+    margin-top: 5rem;
+
+    transition: 0.25s;
+}
+
+#splash {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    transition: 0.5s;
+}
+
+#login {
+    height: 100%;
+    width: 70vw;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    display: none;
+    transition: 1s;
+    transform: scale(0);
+}
+
+#login #superlog {
+    font-weight: 700;
+    padding-bottom: 4.56rem;
+    margin: 0;
+}
+
+#login hr {
+    width: 100%;
+    height: 0.3175rem;
+    color: #3f41454d;
+    background-color: #3f41454d;
+    border: 0;
+    margin: 0;
+}
+
+#login #code {
+    color: #3f41454d;
+    font-weight: 700;
+    padding-top: 4.56rem;
+    margin: 0;
+    position: fixed;
+    bottom: 7.5rem;
+    min-width: max-content;
+}
+
+form {
+    margin: 4rem auto;
+    text-align: center;
+}
+
+#formContainer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex; /* Safari  */
+    display: flex;
+    -webkit-justify-content: space-between; /* Safari */
+    justify-content: space-between;
+    -webkit-flex-wrap: nowrap; /* Safari */
+    flex-wrap: nowrap;
+    
+}
+
+input[type="number"]:focus {
+    outline: none;
+    scale: 1.1;
+}
+
+input[type="number"] {
+    padding: 0; /* Fucking safari */
+    background-color: transparent;
+    border: none;
+    border-bottom: 0.31275rem solid #3f41454d;
+    -webkit-border-radius: 0px;
+    font-size: 6rem;
+    font-weight: 500;
+    margin: 0 1rem;
+    max-width: 4rem;
+    text-align: center;
+    font-family: 'League Spartan';
+    color: #3F4145;
+    caret-color: transparent;
+    -webkit-flex: 1 0 auto; /* Safari */
+    flex: 1 0 auto;
+}
+
+input[type="number"]:focus {
+    outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
+
+
+
+
+@media only screen and (orientation: landscape) {
+    #splash, #login {
+        display: none !important;
+    }
+
+    #app {
+        background-image: url('/static/LandscapeWarning.png') !important;
+        display: block !important;
+        background-position: center !important;
+    }
+}

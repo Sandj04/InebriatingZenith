@@ -75,14 +75,23 @@ def load_products_from_yaml(db_session: DBSession) -> None:
 
     products = import_products(Config.product_config_path) # type: ignore
     for category in products:
-        category_db = add_category(db_session, category.name, category.icon_path)
+        if db_session.query(Category).filter(Category.name == category.name).first():
+            category_db: Category = db_session.query(Category).filter(Category.name == category.name).first()
+            print(f"Category {category.name} already exists.")
+        else:
+            category_db = add_category(db_session, category.name, category.icon_path)
+        if category_db is None:
+            raise ValueError("Category could not be created.")
         for product in category.products:
-            add_product(
-                db_session,
-                product.name,
-                product.description,
-                category_db.id,
-                product.price,
-                "\n".join([f"{ingredient}:{amount}" for ingredient, amount in product.ingredients.items()]),
-                product.unlock_time,
-            )
+            if not db_session.query(Product).filter(Product.name == product.name).first():
+                add_product(
+                    db_session,
+                    product.name,
+                    product.description,
+                    category_db.id,
+                    product.price,
+                    "\n".join([f"{ingredient}:{amount}" for ingredient, amount in product.ingredients.items()]),
+                    product.unlock_time,
+                )
+            else:
+                print(f"Product {product.name} already exists.")
