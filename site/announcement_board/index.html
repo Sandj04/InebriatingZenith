@@ -10,32 +10,31 @@
 <body>
     <header>
         <div class="status">
-            <div id="info-message" class="overflow-scroll">Mee bezig hoor</div>
-            <div id="warning-message" class="overflow-scroll">+69 min</div>
+            <div id="info-message" class="overflow-scroll">Wordt bereid</div>
         </div>
         <div class="bar-info">
             <div class="bar-name">
-                Barman
+                New Year
             </div>
             <div class="logo">
-                <img src="./ns-logo.png" alt="Bar Logo">
+                <img src="../static/ns-logo.png" alt="Bar Logo">
             </div>
         </div>
     </header>
     <main>
         <div id="name" class="overflow-scroll">
-            Alexander Vermeeeuuulllleeeen
+            Alexander V.
         </div>
         <div id="order-info">
-            via Coca Cola, Sinaasappelsap, Screwdriver, Rosé
+            via Coca Cola, Orange Juice, Screwdriver, Rosé
         </div>
         <div class="icons-wapper">
             <div id="icons">
-                <img src="./0_0.png" alt="Drink Icon">
-                <img src="./0_0.png" alt="Drink Icon">
-                <img src="./0_0.png" alt="Drink Icon">
-                <img src="./0_0.png" alt="Drink Icon">
-                <img src="./0_0.png" alt="Drink Icon">
+                <img src="../static/0_0.png" alt="Drink Icon" onclick="changeStatus('Wordt bereid', false)">
+                <img src="../static/0_0.png" alt="Drink Icon" onclick="changeStatus('Klaar voor vertrek', true)">
+                <img src="../static/0_0.png" alt="Drink Icon" onclick="changeStatus('Geen bestellingen', false)">
+                <img src="../static/0_0.png" alt="Drink Icon" onclick="changeStatus('Aanrijding', true)">
+                <img src="../static/0_0.png" alt="Drink Icon">
             </div>
         </div>
     </main>
@@ -66,9 +65,18 @@
         nextOrderElement.innerHTML = "Volgende bestelling: " + nextOrder;
     }
 
-    function changeStatus(status) {
+    function changeStatus(status, backgroundChange) {
         let infoMessage = document.getElementById("info-message");
         infoMessage.innerHTML = status;
+        if (backgroundChange) {
+            // Make the background brrr
+            document.getElementsByTagName("header")[0].style.animation = "flash 1s infinite";
+            document.getElementsByClassName("logo")[0].style.animation = "flashImg 1s infinite";
+        } else {
+            // Reset the cool animation
+            document.getElementsByTagName("header")[0].style.animation = "none";
+            document.getElementsByClassName("logo")[0].style.animation = "none";
+        }
     }
 
     function changeIcons(icons_paths) {

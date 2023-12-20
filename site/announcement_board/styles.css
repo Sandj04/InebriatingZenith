@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap');
+
 :root {
     --txt-main-color: #233771;
     --txt-contrast-color: #ffffff;
     --txt-alert-color: #DB0029;
-    
+
     --bg-main-color: #ffffff;
     --bg-contrast-color: #233771;
 }
@@ -11,7 +13,7 @@ body {
     font-family: "Raleway", sans-serif;
     font-variant-numeric: lining-nums proportional-nums;
     color: var(--txt-main-color);
-    
+
     padding: 0;
     margin: 0;
 
@@ -26,12 +28,12 @@ body {
 }
 
 header {
-    width: 100%;
     height: 155px;
-    display: grid;
-    grid-template-columns: auto auto;
-    margin: 0 0.5rem 0 0.5rem;
+    display: flex;
+    padding: 0 2.2rem 0 2.2rem;
     box-sizing: border-box;
+    justify-content: space-between;
+
 }
 
 header .status {
@@ -39,33 +41,18 @@ header .status {
     margin: auto 0 0 0;
     font-size: 6rem;
     font-weight: 700;
-    line-height: normal;
+    line-height: 6rem;
     flex-shrink: 0;
 
     width: max-content;
 }
 
-header .status #info-message {
-    margin: 0 0.5em 0 0;
-    max-width: 39rem;
-    max-height: 7rem;
-    
-}
-
-header .status #warning-message {
-    color: var(--txt-alert-color);
-    font-weight: 700;
-    max-width: 21rem;
-    max-height: 9rem;
-}
 
 header .bar-info {
-    display: grid;
-    grid-template-columns: auto min-content;
+    display: flex;
     gap: 3rem;
     text-align: end;
     box-sizing: border-box;
-    margin-right: 1em;
 }
 
 header .bar-info .bar-name {
@@ -86,10 +73,48 @@ header .bar-info .logo {
     height: 110px;
 }
 
+@keyframes flash {
+
+    0%,
+    49% {
+        background: var(--bg-contrast-color);
+        color: var(--bg-main-color);
+    }
+
+    50%,
+    99% {
+        background: var(--bg-main-color);
+        color: var(--bg-contrast-color);
+    }
+
+    100% {
+        background: var(--bg-contrast-color);
+        color: var(--bg-main-color);
+    }
+}
+
+@keyframes flashImg {
+
+    0%,
+    49% {
+        filter: brightness(0) invert(1) grayscale(1);
+    }
+
+    50%,
+    99% {
+        filter: brightness(1) invert(0) grayscale(0);
+    }
+
+    100% {
+        filter: brightness(0) invert(1) grayscale(1);
+    }
+}
+
+
 main {
     display: grid;
     grid-template-rows: min-content auto min-content;
-    margin: 0 0.5rem 0 0.5rem;
+    margin: 0 2.2rem 0 2.2rem;
 }
 
 main #name {
@@ -142,9 +167,9 @@ footer #next-order {
     margin: 0 2.2rem 0 2.2rem;
 }
 
-.overflow-scroll {
+/* .overflow-scroll {
     text-overflow: clip;
     white-space: nowrap;
     overflow: hidden;
     scroll-behavior: smooth;
-}
+} */
