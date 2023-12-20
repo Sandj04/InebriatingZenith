@@ -1,0 +1,150 @@
+:root {
+    --txt-main-color: #233771;
+    --txt-contrast-color: #ffffff;
+    --txt-alert-color: #DB0029;
+    
+    --bg-main-color: #ffffff;
+    --bg-contrast-color: #233771;
+}
+
+body {
+    font-family: "Raleway", sans-serif;
+    font-variant-numeric: lining-nums proportional-nums;
+    color: var(--txt-main-color);
+    
+    padding: 0;
+    margin: 0;
+
+    overflow: hidden;
+    box-sizing: border-box;
+
+    height: 100vh;
+    max-height: 100vh;
+
+    display: grid;
+    grid-template-rows: min-content auto min-content;
+}
+
+header {
+    width: 100%;
+    height: 155px;
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: 0 0.5rem 0 0.5rem;
+    box-sizing: border-box;
+}
+
+header .status {
+    display: inline-flex;
+    margin: auto 0 0 0;
+    font-size: 6rem;
+    font-weight: 700;
+    line-height: normal;
+    flex-shrink: 0;
+
+    width: max-content;
+}
+
+header .status #info-message {
+    margin: 0 0.5em 0 0;
+    max-width: 39rem;
+    max-height: 7rem;
+    
+}
+
+header .status #warning-message {
+    color: var(--txt-alert-color);
+    font-weight: 700;
+    max-width: 21rem;
+    max-height: 9rem;
+}
+
+header .bar-info {
+    display: grid;
+    grid-template-columns: auto min-content;
+    gap: 3rem;
+    text-align: end;
+    box-sizing: border-box;
+    margin-right: 1em;
+}
+
+header .bar-info .bar-name {
+    font-size: 9.375rem;
+    font-weight: 700;
+    letter-spacing: -0.09375rem;
+    max-height: 155px;
+}
+
+header .bar-info .logo {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 281px;
+    height: 110px;
+}
+
+main {
+    display: grid;
+    grid-template-rows: min-content auto min-content;
+    margin: 0 0.5rem 0 0.5rem;
+}
+
+main #name {
+    font-size: 10rem;
+    font-weight: 700;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+main #order-info {
+    font-size: 6.875rem;
+    font-weight: 700;
+    line-height: 9.375rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+main .icons-wrapper {
+    width: 100%;
+    max-height: 5.625rem;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+main #icons {
+    width: min-content;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0 auto 0.5em auto;
+}
+
+main #icons img {
+    height: 5.625rem;
+    margin: 0 1.5rem 0 1.5rem;
+}
+
+footer {
+    background-color: var(--bg-contrast-color);
+    color: var(--txt-contrast-color);
+    font-size: 5rem;
+    font-weight: 700;
+    letter-spacing: -0.25rem;
+    padding: 0.3rem 0 0.3rem 0;
+}
+
+footer #next-order {
+    margin: 0 2.2rem 0 2.2rem;
+}
+
+.overflow-scroll {
+    text-overflow: clip;
+    white-space: nowrap;
+    overflow: hidden;
+    scroll-behavior: smooth;
+}

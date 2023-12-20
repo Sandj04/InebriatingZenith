@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
+    <title>Pickup Sign</title>
+</head>
+<body>
+    <header>
+        <div class="status">
+            <div id="info-message" class="overflow-scroll">Mee bezig hoor</div>
+            <div id="warning-message" class="overflow-scroll">+69 min</div>
+        </div>
+        <div class="bar-info">
+            <div class="bar-name">
+                Barman
+            </div>
+            <div class="logo">
+                <img src="./ns-logo.png" alt="Bar Logo">
+            </div>
+        </div>
+    </header>
+    <main>
+        <div id="name" class="overflow-scroll">
+            Alexander Vermeeeuuulllleeeen
+        </div>
+        <div id="order-info">
+            via Coca Cola, Sinaasappelsap, Screwdriver, Rosé
+        </div>
+        <div class="icons-wapper">
+            <div id="icons">
+                <img src="./0_0.png" alt="Drink Icon">
+                <img src="./0_0.png" alt="Drink Icon">
+                <img src="./0_0.png" alt="Drink Icon">
+                <img src="./0_0.png" alt="Drink Icon">
+                <img src="./0_0.png" alt="Drink Icon">
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div id="next-order" class="overflow-scroll">
+            Volgende bestelling: 6x Sander
+        </div>
+    </footer>
+</body>
+<script>
+    function switchWarningMessageVisibility() {
+        let warningMessage = document.getElementById("warning-message");
+        warningMessage.style.display = warningMessage.style.display === "none" ? "block" : "none";
+    }
+
+    function changeName(name) {
+        let nameElement = document.getElementById("name");
+        nameElement.innerHTML = name;
+    }
+
+    function changeOrderInfo(orderItems) {
+        let orderInfoElement = document.getElementById("order-info");
+        orderInfoElement.innerHTML = "via " + orderItems.join(", ");
+    }
+
+    function changeNextOrder(nextOrder) {
+        let nextOrderElement = document.getElementById("next-order");
+        nextOrderElement.innerHTML = "Volgende bestelling: " + nextOrder;
+    }
+
+    function changeStatus(status) {
+        let infoMessage = document.getElementById("info-message");
+        infoMessage.innerHTML = status;
+    }
+
+    function changeIcons(icons_paths) {
+        let iconsContainer = document.getElementById("icons");
+        iconsContainer.innerHTML = "";
+        for (let i = 0; i < icons_paths.length; i++) {
+            let icon = document.createElement("img");
+            icon.src = icons_paths[i];
+            icon.alt = "Drink Icon";
+            iconsContainer.appendChild(icon);
+        }
+    }
+
+    // This code makes every element with the class "overflow-scroll" automatically scroll slowly
+    // when the text is too long to fit in the element.
+    const scrollCooldown = 100; // How long to wait before scrolling again.
+    const scrollSpeed = 50; // How often the elements iterate in scrolling.
+    const scrollDistance = 2; // How much the elements scroll each iteration.
+
+    function AutoScrollElement(element) {
+        if (element.scrollLeft >= (element.scrollWidth - element.clientWidth)) {
+            element.scroll(0, 0)
+            element.scrollCooldown = scrollCooldown;
+        }
+        if (element.scrollCooldown > 0) {
+            element.scrollCooldown -= 1;
+        } else {
+            element.scrollLeft += scrollDistance;
+        }
+    }
+
+    function addAutoScroll(element) {
+        element.scrollCooldown = scrollCooldown;
+        element.scroller = setInterval(AutoScrollElement, scrollSpeed, element);
+    }
+
+    let overflowScrollElements = document.getElementsByClassName("overflow-scroll");
+    for (let i = 0; i < overflowScrollElements.length; i++) {
+        let element = overflowScrollElements[i];
+        
+        if (element.scrollWidth > element.clientWidth) {
+            addAutoScroll(element);
+        }
+        
+        const observer = new MutationObserver((mutations) => {
+            if (element.scrollWidth > element.clientWidth) {
+                addAutoScroll(element);
+            }
+        });
+
+        observer.observe(element, { childList: true });
+
+    }
+</script>
+
+</html>
