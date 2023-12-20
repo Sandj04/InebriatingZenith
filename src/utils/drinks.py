@@ -7,27 +7,27 @@ from typing import Any
 # TODO Add logging to module.
 
 
-class DrinkCategory:
+class ProductCategory:
     name: str
     icon_path: str
-    drinks: list["Drink"]
+    products: list["Product"]
 
     def __init__(self, name: str, icon_path: str) -> None:
         self.name = name
         self.icon_path = icon_path
-        self.drinks = []
+        self.products = []
 
-    def add_drink(self, drink: "Drink") -> None:
-        drink._change_category(self)
-        self.drinks.append(drink)
+    def add_product(self, product: "Product") -> None:
+        product._change_category(self)
+        self.products.append(product)
 
     def __repr__(self) -> str:
-        return f"DrinkCategory(name: {self.name}, icon_path: {self.icon_path}, drinks: [{len(self.drinks)} drinks...])"
+        return f"DrinkCategory(name: {self.name}, icon_path: {self.icon_path}, products: [{len(self.products)} products...])"
 
 
-class Drink:
+class Product:
     name: str
-    __category: DrinkCategory | None
+    __category: ProductCategory | None
     description: str
     price: int  # Price represented in hundreds. 125 == 1,25
     __ingredients: dict[str, int]
@@ -58,7 +58,7 @@ class Drink:
         if name in self.__ingredients:
             self.__ingredients.pop(name)
 
-    def _change_category(self, category: DrinkCategory) -> None:
+    def _change_category(self, category: ProductCategory) -> None:
         """Changes the current category of the drink.
         Should only be used by the `DrinkCategory` class.
         """
@@ -76,42 +76,42 @@ class Drink:
         return self.__ingredients.copy()
 
     @property
-    def category(self) -> DrinkCategory | None:
+    def category(self) -> ProductCategory | None:
         return self.__category
 
 
-def import_drinkslist(filepath: pathlib.Path) -> list[DrinkCategory]:
+def import_products(filepath: pathlib.Path) -> list[ProductCategory]:
     """Imports the drink data from a .yaml file.
     Assumes that the .yaml file is valid.
     """  # TODO Maybe add safety measures? Or easy debugging?
     data: dict[str, dict[str, Any]]
-    with open(filepath, "r") as drinks_file:
-        data = yaml.full_load(drinks_file)
+    with open(filepath, "r") as product_file:
+        data = yaml.full_load(product_file)
 
-    categories: dict[str, DrinkCategory] = dict()
+    categories: dict[str, ProductCategory] = dict()
     for cat_name, cat_data in data["categories"].items():
-        categories[cat_name] = DrinkCategory(cat_name, cat_data["icon"])
+        categories[cat_name] = ProductCategory(cat_name, cat_data["icon"])
 
-    for drink_name, drink_data in data["drinks"].items():
-        cur_drink = Drink(
-            drink_name,
-            drink_data["description"],
-            int(drink_data["price"] * 100),
-            datetime.datetime.strptime(drink_data["unlocks_at"], "%Y-%m-%d %H:%M")
-            if "unlocks_at" in drink_data
+    for product_name, product_data in data["drinks"].items():
+        cur_product = Product(
+            product_name,
+            product_data["description"],
+            int(product_data["price"] * 100),
+            datetime.datetime.strptime(product_data["unlocks_at"], "%Y-%m-%d %H:%M")
+            if "unlocks_at" in product_data
             else None,
         )
 
         # Add drink to category
         # Assumes the category exists.
-        categories[drink_data["category"]].add_drink(cur_drink)
+        categories[product_data["category"]].add_product(cur_product)
 
     return list(categories.values())
 
 
 if __name__ == "__main__":
-    data = import_drinkslist(pathlib.Path("./drinks.yaml"))
+    data = import_products(pathlib.Path("./drinks.yaml"))
     for cat in data:
         print(cat)
-        for dr in cat.drinks:
+        for dr in cat.products:
             print(f" - {dr}")

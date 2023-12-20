@@ -15,6 +15,7 @@ environment variables.
 import os
 import dotenv
 import json
+import pathlib
 
 from typing import TypeVar
 
@@ -60,6 +61,10 @@ class Config:
     db_host = get_config_variable("DB_HOST", str, "127.0.0.1")
     db_port = get_config_variable("DB_PORT", int, 3306)
     db_database = get_config_variable("DB_DATABASE", str, "", required=True)
+
+    product_config_path = get_config_variable(
+        "PRODUCT_CONFIG_PATH", str, "./products.yml"
+    )
 
     @staticmethod
     def get_database_connection_string() -> str:
