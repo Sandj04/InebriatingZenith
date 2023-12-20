@@ -165,7 +165,7 @@ input[type=number] {
     }
 
     #app {
-        background-image: url('../static/LandscapeWarning.png') !important;
+        background-image: url('/static/LandscapeWarning.png') !important;
         display: block !important;
         background-position: center !important;
     }
