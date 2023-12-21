@@ -83,7 +83,7 @@ def create_admin(db_session: Session, username: str, password: str) -> Admin:
     """Create an admin user."""
     new_admin = Admin(
         username=username,
-        password=src.utils.auth.hash_password(password),
+        hashed_password=src.utils.auth.hash_password(password),
     )
     db_session.add(new_admin)
     db_session.commit()
@@ -134,3 +134,12 @@ def admin_session_valid(db_session: Session, admin_username: str, token: str) ->
         .count()
         == 1
     )
+
+
+def setup_root_admin(db_session: Session, admin_username: str, admin_password: str) -> None:
+    """Set up the root admin user. If the root admin already exists, do nothing."""
+    if admin_exists(db_session, admin_username):
+        print("Root admin already exists.")
+        return
+
+    create_admin(db_session, admin_username, admin_password)
