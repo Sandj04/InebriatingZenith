@@ -17,14 +17,14 @@ import dotenv
 import json
 import pathlib
 
-from typing import TypeVar
+from typing import TypeVar, Any
 
 T = TypeVar("T")
 
 
 def get_config_variable(
     name: str, var_type: T, default: T, required: bool = False
-) -> T:
+) -> Any:
     """Get a configuration variable.
 
     If the variable is not defined, the default value will be returned.
@@ -56,15 +56,18 @@ class Config:
     Provides a way to define the configuration schema of the application.
     """
 
-    db_user = get_config_variable("DB_USER", str, "", required=True)
-    db_password = get_config_variable("DB_PASSWORD", str, "", required=True)
-    db_host = get_config_variable("DB_HOST", str, "127.0.0.1")
-    db_port = get_config_variable("DB_PORT", int, 3306)
-    db_database = get_config_variable("DB_DATABASE", str, "", required=True)
+    db_user: str = get_config_variable("DB_USER", str, "", required=True)
+    db_password: str = get_config_variable("DB_PASSWORD", str, "", required=True)
+    db_host: str = get_config_variable("DB_HOST", str, "127.0.0.1")
+    db_port: int = get_config_variable("DB_PORT", int, 3306)
+    db_database: str = get_config_variable("DB_DATABASE", str, "", required=True)
 
-    product_config_path = get_config_variable(
+    product_config_path: str = get_config_variable(
         "PRODUCT_CONFIG_PATH", str, "./products.yml"
     )
+    
+    root_admin_username: str = get_config_variable("ROOT_ADMIN_USERNAME", str, "", required=True)
+    root_admin_password: str = get_config_variable("ROOT_ADMIN_PASSWORD", str, "", required=True)
 
     @staticmethod
     def get_database_connection_string() -> str:
