@@ -73,10 +73,8 @@ def admin_dashboard() -> str:
 
 @admin_blueprint.route("/api/login", methods=["POST"])
 def login() -> Response:
-    username = request.form.get("username")  # TODO Clean input
-    password = request.form.get("password")  # TODO Clean input
-
-    res = make_response()
+    username = request.form.get("username")
+    password = request.form.get("password")
 
     print(username, password)
 

@@ -34,7 +34,8 @@ def user_exists(db_session: Session, username: str) -> bool:
 def create_session(db_session: Session, user_id: int) -> auth_Session:
     """Create a session for a user."""
     new_session = auth_Session(
-        user=user_id, hashed_token=src.utils.auth.hash_token(src.utils.auth.generate_token())
+        user=user_id,
+        hashed_token=src.utils.auth.hash_token(src.utils.auth.generate_token()),
     )
     db_session.add(new_session)
     db_session.commit()
@@ -140,7 +141,9 @@ def admin_session_valid(db_session: Session, hashed_token: str) -> bool:
     )
 
 
-def setup_root_admin(db_session: Session, admin_username: str, admin_password: str) -> None:
+def setup_root_admin(
+    db_session: Session, admin_username: str, admin_password: str
+) -> None:
     """Set up the root admin user. If the root admin already exists, do nothing."""
     if admin_exists(db_session, admin_username):
         print("Root admin already exists.")

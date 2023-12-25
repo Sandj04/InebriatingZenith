@@ -38,6 +38,7 @@ SessionMaker = sessionmaker(bind=db_engine)
 db_session = SessionMaker()
 # --------------------------------------------------------------------------------------
 
+
 # Routes
 @app.route("/", methods=["GET"])
 def index() -> flask.Response:
@@ -64,7 +65,11 @@ def init_dev_server() -> None:
     load_products_from_yaml(db_session)
 
     # Set up the root admin user.
-    setup_root_admin(db_session, src.utils.config.Config.root_admin_username, src.utils.config.Config.root_admin_password)
+    setup_root_admin(
+        db_session,
+        src.utils.config.Config.root_admin_username,
+        src.utils.config.Config.root_admin_password,
+    )
 
     app.run(debug=True, port=5000)
 
