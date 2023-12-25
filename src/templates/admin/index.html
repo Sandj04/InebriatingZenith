@@ -3,13 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <title>InebriatingZenith | Admin</title>
 </head>
 <body>
-    <form action="/admin/api/login" method="post">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <button type="submit">Login</button>
+    <form id="login-form">
+        <input id="username" type="text" name="username" placeholder="Username">
+        <input id="password" type="password" name="password" placeholder="Password">
+        <button id="login-submit" type="submit">Login</button>
     </form>
+    <div id="response-message">
+        
+    </div>
+    <a href="/admin/dashboard">Already logged in?</a>
 </body>
+
+<script>
+    function invalidCredentials() {
+        $('#username').css('border', '1px solid red');
+        $('#password').css('border', '1px solid red');
+    }
+
+    $(document).ready(function() {
+        $('#login-form').submit(function() {
+            $.post("/admin/api/login",
+            {
+                username: $('#username').val(),
+                password: $('#password').val()
+            },
+            function(data, status){
+                if (data.success === true) {
+                    Cookies.set('token', data.token);
+                    Cookies.set('admin_id', data.admin_id);
+                    window.location.href = "/admin/dashboard";
+                } else {
+                    $('#response-message').html(data.message);
+                    invalidCredentials();
+                }
+            }
+            );
+            return false;
+        });
+    });
+</script>
 </html>

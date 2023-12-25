@@ -109,10 +109,10 @@ def admin_password_valid(
     return src.utils.auth.compare_passwords(password, admin_target.hashed_password)
 
 
-def create_admin_session(db_session: Session, admin_username: str) -> AdminSession:
+def create_admin_session(db_session: Session, admin_id: int) -> AdminSession:
     """Create a session for an admin."""
-    new_session = auth_Session(
-        admin=admin_username,
+    new_session = AdminSession(
+        admin=admin_id,
         hashed_token=src.utils.auth.hash_token(src.utils.auth.generate_token()),
     )
     db_session.add(new_session)
@@ -120,16 +120,20 @@ def create_admin_session(db_session: Session, admin_username: str) -> AdminSessi
     return new_session
 
 
-def admin_session_valid(db_session: Session, admin_username: str, token: str) -> bool:
+def get_admin_id_from_username(db_session: Session, admin_username: str) -> int | None:
+    """Get the ID of an admin from their username."""
+    result = db_session.query(Admin).filter(Admin.username == admin_username).first()
+    return result.id if result is not None else None
+
+
+def admin_session_valid(db_session: Session, hashed_token: str) -> bool:
     """Returns True if a session token and admin_username are valid.
     This is the main function used for admin authentication using a session token.
     """
-    hashed_token = src.utils.auth.hash_token(token)
     return (  # TODO Should we retrieve the session token and check it on the server?
-        db_session.query(auth_Session)
+        db_session.query(AdminSession)
         .filter(
-            auth_Session.admin == admin_username,
-            auth_Session.hashed_token == hashed_token,
+            AdminSession.hashed_token == hashed_token,
         )
         .count()
         == 1
