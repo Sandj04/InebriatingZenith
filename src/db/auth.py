@@ -99,14 +99,14 @@ def admin_password_valid(
     db_session: Session, admin_username: str, password: str
 ) -> bool:
     """Check if an admin password is valid."""
-    hashed_password = (
+    admin_target = (
         db_session.query(Admin).filter(Admin.username == admin_username).first()
     )  # Retrieve the hashed password from the admins table.
 
-    if hashed_password is None:  # Admin does not exist.
+    if admin_target is None:  # Admin does not exist.
         return False
 
-    return src.utils.auth.compare_passwords(password, hashed_password.password)
+    return src.utils.auth.compare_passwords(password, admin_target.hashed_password)
 
 
 def create_admin_session(db_session: Session, admin_username: str) -> AdminSession:

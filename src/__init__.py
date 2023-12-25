@@ -36,13 +36,9 @@ Base.metadata.create_all(db_engine)
 # Create a session.
 SessionMaker = sessionmaker(bind=db_engine)
 db_session = SessionMaker()
-
-# TODO Make this work.
-# with app.app_context():
-#     flask.g.setdefault("db_session", db_session)
 # --------------------------------------------------------------------------------------
 
-
+# Routes
 @app.route("/", methods=["GET"])
 def index() -> flask.Response:
     session_token = request.cookies.get("session_token")
