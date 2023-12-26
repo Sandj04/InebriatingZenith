@@ -13,7 +13,7 @@ import src.utils.config
 
 db_engine = sqlalchemy.create_engine(
     src.utils.config.Config.get_database_connection_string(),
-    echo=True,  # Set to True to see SQL queries in the console.
+    echo=True, # ? Set to True to see SQL queries in the console.
 )
 
 # Globals

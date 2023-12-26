@@ -43,34 +43,40 @@ def check_credentials():
         token = request.cookies.get("token")
 
         if admin_id is None or not admin_id.isnumeric():
-            print("1")
             return redirect("/admin")
 
         if token is None:
-            print("2")
             return redirect("/admin")
 
         if len(token) != 64:
-            print("3")
             return redirect("/admin")
 
         admin_id = int(admin_id)
 
         if not auth.admin_session_valid(db_session, token):
-            print("4")
             return redirect("/admin")
 
 
 @admin_blueprint.route("/", methods=["GET"])
-def admin_index() -> str:
+def index() -> str:
     return render_template("/admin/index.html")
 
 
 @admin_blueprint.route("/dashboard", methods=["GET"])
-def admin_dashboard() -> str:
-    return "Hello, World!"
+def dashboard() -> str:
+    return render_template("/admin/dashboard.html")
 
 
+@admin_blueprint.route("/user_auth", methods=["GET"])
+def user_authentication_management():
+    return render_template("/admin/user_auth.html")
+
+# TODO User balance management.
+# TODO Order Management.
+# TODO Product Management.
+
+# --------------------------------------------------------------------------------------
+# APIs
 @admin_blueprint.route("/api/login", methods=["POST"])
 def login() -> Response:
     username = request.form.get("username")
@@ -103,5 +109,37 @@ def login() -> Response:
         {
             "success": False,
             "message": "Invalid credentials.",
+        }
+    )
+
+
+@admin_blueprint.route("/api/add_admin", methods=["POST"])
+def add_admin() -> Response:
+    username = request.form.get("username")
+    password = request.form.get("password")
+
+    if not username or not password:
+        return jsonify(
+            {
+                "success": False,
+                "message": "Missing username or password.",
+            }
+        )
+
+    if auth.admin_exists(db_session, username):
+        return jsonify(
+            {
+                "success": False,
+                "message": "Username already exists.",
+            }
+        )
+
+    created = auth.create_admin(db_session, username, password)
+
+    return jsonify(
+        {
+            "success": True,
+            "message": f"Successfully added admin with ID {created.id}.",
+            "admin_id": created.id,
         }
     )
