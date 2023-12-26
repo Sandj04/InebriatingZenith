@@ -95,3 +95,8 @@ def load_products_from_yaml(db_session: DBSession) -> None:
                 )
             else:
                 print(f"Product {product.name} already exists.")
+
+
+def get_all_products(db_session: DBSession) -> list[Product]:
+    """Get all products from the database."""
+    return db_session.query(Product).all()

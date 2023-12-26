@@ -1,5 +1,5 @@
 import flask
-from flask import render_template, request, redirect, make_response
+from flask import render_template, request, redirect, make_response, jsonify
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 
@@ -7,13 +7,15 @@ from sqlalchemy.orm import sessionmaker
 from src.db.schemas import Base
 from src.db.products import load_products_from_yaml
 from src.db.auth import session_valid, setup_root_admin
+from src.db import ordering
 from src import easy
 from src.admin_client import admin_blueprint
 import src.utils.config
+from src.utils.realtime import OrderQueue
 
 db_engine = sqlalchemy.create_engine(
     src.utils.config.Config.get_database_connection_string(),
-    echo=True, # ? Set to True to see SQL queries in the console.
+    echo=True,  # ? Set to True to see SQL queries in the console.
 )
 
 # Globals
@@ -36,6 +38,8 @@ Base.metadata.create_all(db_engine)
 # Create a session.
 SessionMaker = sessionmaker(bind=db_engine)
 db_session = SessionMaker()
+
+ORDER_QUEUE = OrderQueue(db_session)
 # --------------------------------------------------------------------------------------
 
 
@@ -58,6 +62,68 @@ def index() -> flask.Response:
         return res
 
     return make_response(redirect("/order_page"))
+
+
+# Functions handled before each request.
+# --------------------------------------------------------------------------------------
+@app.before_request
+def authentication_check():
+    """Check if the user is authenticated."""
+
+    # Paths that do not require authentication.
+    PATH_EXCLUSIONS = ["/", "/api/login"]
+
+    if request.path not in PATH_EXCLUSIONS:
+        session_token = request.cookies.get("session_token")
+        user_id = request.cookies.get("user")
+
+        if user_id is None or not user_id.isnumeric():
+            return jsonify(
+                {
+                    "success": False,
+                    "message": "Invalid user ID.",
+                }
+            )
+
+        user_id = int(user_id)
+
+        if session_token is None or not session_valid(
+            db_session, user_id, session_token
+        ):
+            return jsonify(
+                {
+                    "success": False,
+                    "message": "Invalid session token.",
+                }
+            )
+
+
+# API Routes
+# --------------------------------------------------------------------------------------
+@app.route("/api/add_to_cart", methods=["POST"])
+def add_to_cart():
+    user_id = request.cookies.get("user")
+
+    if user_id is None or not user_id.isnumeric():
+        return jsonify(
+            {
+                "success": False,
+                "message": "Invalid user ID.",
+            }
+        )
+
+    user_id = int(user_id)
+
+    product_id = request.form.get("product_id")
+
+    if product_id is None or not product_id.isnumeric():
+        return make_response("Invalid product ID.", 200)
+
+    product_id = int(product_id)
+
+    ordering.add_to_cart(db_session, user_id, product_id)
+
+    return make_response("OK", 200)
 
 
 def init_dev_server() -> None:

@@ -2,6 +2,8 @@
 /easy.py
 """
 
+# TODO Probably delete this file it serves no real purpose.
+
 from flask import Response
 
 def reset_cookies(response: Response) -> Response:
