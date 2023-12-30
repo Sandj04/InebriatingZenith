@@ -26,6 +26,11 @@ def code_exists(db_session: Session, code: int) -> bool:
     return db_session.query(User).filter(User.code == code).count() > 0
 
 
+def get_user_by_code(db_session: Session, code: int) -> User | None:
+    """Get a user by their code."""
+    return db_session.query(User).filter(User.code == code).first()
+
+
 def user_exists(db_session: Session, username: str) -> bool:
     """Check if a username exists in the database."""
     return db_session.query(User).filter(User.username == username).count() > 0
