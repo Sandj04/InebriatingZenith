@@ -159,14 +159,3 @@ input[type=number] {
 
 
 
-@media only screen and (orientation: landscape) {
-    #splash, #login {
-        display: none !important;
-    }
-
-    #app {
-        background-image: url('/static/LandscapeWarning.png') !important;
-        display: block !important;
-        background-position: center !important;
-    }
-}

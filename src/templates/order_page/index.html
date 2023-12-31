@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Order</title>
+    <meta name="description" content="Happy new year!">
+    <link rel="icon" href="../../static/favicon.ico">
+    <link rel="stylesheet" href="./style.css">
+    <meta name="theme-color" content="#3F4145" />
+    <meta name="viewport" viewport="width=device-width, initial-scale=1.0" content="user-scalable=no" />
+</head>
+<body>
+
+<div id="app">
+    <div id="header">
+        <h1>Happy New Year, {name}!</h1>
+    </div>
+    <div id="menu">
+        <div class="drink" onclick="addItem()">
+            <div class="title_containter">
+                <div class="drink_title">Water</div>
+                <div class="drink_description">For when you're lame</div>
+            </div>
+            <img src="../static/0_0.png" alt="beer">
+            <div class="drink_button">0.0</div>
+        </div>
+        <div class="drink" onclick="addItem()">
+            <div class="title_containter">
+                <div class="drink_title">Sparkling Water</div>
+                <div class="drink_description">Lame but with bubbles</div>
+            </div>
+            <img src="../static/0_0.png" alt="beer">
+            <div class="drink_button">0.5</div>
+        </div>
+        <div class="drink" onclick="addItem()">
+            <div class="title_containter">
+                <div class="drink_title">Coca Cola</div>
+                <div class="drink_description">The healthy coke alternative</div>
+            </div>
+            <img src="../static/0_0.png" alt="beer">
+            <div class="drink_button">0.5</div>
+        </div>
+        <div class="drink" onclick="addItem()">
+            <div class="title_containter">
+                <div class="drink_title">Orange Juice</div>
+                <div class="drink_description">"Freshly" squeezed</div>
+            </div>
+            <img src="../static/0_0.png" alt="beer">
+            <div class="drink_button">0.5</div>
+        </div>
+        <div class="drink" onclick="addItem()">
+            <div class="title_containter">
+                <div class="drink_title">Ginger Beer</div>
+                <div class="drink_description">It's not rusty, it's gingah</div>
+            </div>
+            <img src="../static/0_0.png" alt="beer">
+            <div class="drink_button">0.5</div>
+        </div>
+        <div class="drink" onclick="addItem()">
+            <div class="title_containter">
+                <div class="drink_title">Tonic</div>
+                <div class="drink_description">Only here bc of gin and tonic</div>
+            </div>
+            <img src="../static/0_0.png" alt="beer">
+            <div class="drink_button">5.0</div>
+        </div>
+        <div class="drink" onclick="addItem()">
+            <div class="title_containter">
+                <div class="drink_title">Other</div>
+                <div class="drink_description">Just for scrolling</div>
+            </div>
+            <img src="../static/0_0.png" alt="beer">
+            <div class="drink_button">0.5</div>
+        </div>
+        <div class="drink" onclick="addItem()">
+            <div class="title_containter">
+                <div class="drink_title">Other</div>
+                <div class="drink_description">Just for scrolling</div>
+            </div>
+            <img src="../static/0_0.png" alt="beer">
+            <div class="drink_button">0.5</div>
+        </div>
+        <div class="drink" onclick="addItem()">
+            <div class="title_containter">
+                <div class="drink_title">Other</div>
+                <div class="drink_description">Just for scrolling</div>
+            </div>
+            <img src="../static/0_0.png" alt="beer">
+            <div class="drink_button">0.5</div>
+        </div>
+        <div class="drink" onclick="addItem()">
+            <div class="title_containter">
+                <div class="drink_title">Other</div>
+                <div class="drink_description">Just for scrolling</div>
+            </div>
+            <img src="../static/0_0.png" alt="beer">
+            <div class="drink_button">0.5</div>
+        </div>
+        <div class="drink" onclick="addItem()">
+            <div class="title_containter">
+                <div class="drink_title">Other</div>
+                <div class="drink_description">Just for scrolling</div>
+            </div>
+            <img src="../static/0_0.png" alt="beer">
+            <div class="drink_button">0.5</div>
+        </div>
+            <div id="user_info">
+                <div>
+                    <p>Currently logged in as {name}</p>
+                    <p>Since: <span id="time"></span></p>
+                </div>
+                <div id="logout" onclick="logout()">log out</div>
+            </div>
+        </div>
+    </div>
+    <div id="slider" class="bottom">
+        <div class="option" id="beer_btn" onclick="loadContent('beer')">Beer</div>
+        <div class="option" id="wine_btn" onclick="loadContent('wine')">Wine </div>
+        <div class="option" id="cock_btn" onclick="loadContent('cock')">Cocktails</div>
+        <div class="option" id="free_btn" onclick="loadContent('free')">0.0</div>
+    </div>
+    <div id="footer" class="bottom">
+        <h1>Go to order ({} tasks)</h1>
+    </div>
+</div>
+<script>
+    const now = new Date();
+    const currentDateTime = now.toLocaleString();
+    document.getElementById("time").innerHTML = currentDateTime;
+
+    //loads default, currently alc free drinks
+    loadContent('free')
+
+    function slider(drinkType) {
+        const grey = "#3F4145";
+        const blue = "#4285F4";
+        const white = "#FFF"
+        let drinkId = drinkType += "_btn";
+        let i, options;
+        //preps options
+        options = document.getElementsByClassName('option')
+        for (i = 0; i < options.length; i++) {
+            options[i].style.backgroundColor = "";
+            options[i].style.color = grey;
+        }
+        //changes the colors
+        document.getElementById(drinkId).style.backgroundColor = blue;
+        document.getElementById(drinkId).style.color = white;
+    }
+
+    function loadContent(drinkType,drinkId) {
+        //todo add actually loading in the conent
+        slider(drinkType)
+    }
+
+    function addItem() {
+        //todo add price to total
+    }
+
+    function logout() {
+        window.location.href = "../splash/index.html";
+    }
+</script>
+</body>
+</html>

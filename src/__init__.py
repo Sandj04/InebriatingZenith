@@ -109,29 +109,32 @@ def authentication_check():
     # Paths that do not require authentication.
     PATH_EXCLUSIONS = ["/", "/api/login"]
 
-    if request.path not in PATH_EXCLUSIONS:
-        session_token = request.cookies.get("session_token")
-        user_id = request.cookies.get("user")
+    # Exclude static files
+    if request.path.startswith("/static") or request.path in PATH_EXCLUSIONS:
+        return
 
-        if user_id is None or not user_id.isnumeric():
-            return jsonify(
-                {
-                    "success": False,
-                    "message": "Invalid user ID.",
-                }
-            )
+    session_token = request.cookies.get("session_token")
+    user_id = request.cookies.get("user")
 
-        user_id = int(user_id)
+    if user_id is None or not user_id.isnumeric():
+        return jsonify(
+            {
+                "success": False,
+                "message": "Invalid user ID.",
+            }
+        )
 
-        if session_token is None or not auth.session_valid(
-            db_session, user_id, session_token
-        ):
-            return jsonify(
-                {
-                    "success": False,
-                    "message": "Invalid session token.",
-                }
-            )
+    user_id = int(user_id)
+
+    if session_token is None or not auth.session_valid(
+        db_session, user_id, session_token
+    ):
+        return jsonify(
+            {
+                "success": False,
+                "message": "Invalid session token.",
+            }
+        )
 
 
 # API Routes
