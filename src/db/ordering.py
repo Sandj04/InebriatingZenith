@@ -16,7 +16,16 @@ def create_cart(db_session: DBSession, user_id: int) -> Cart:
 
 def get_cart_by_user(db_session: DBSession, user_id: int) -> Cart:
     """Get a cart by its ID."""
-    return db_session.query(Cart).filter(Cart.user == user_id).first()
+    return (
+        db_session.query(Cart)
+        .filter(
+            Cart.user == user_id,
+            Cart.payed == False,
+            Cart.ready == False,
+            Cart.delivered == False,
+        )
+        .first()
+    )
 
 
 def user_has_cart(db_session: DBSession, user_id: int) -> bool:
@@ -71,6 +80,21 @@ def remove_cart_item(db_session: DBSession, cart_item_id: int) -> None:
     return
 
 
+def remove_product_from_cart(
+    db_session: DBSession, cart_id: int, product_id: int
+) -> None:
+    """Remove a product from a cart."""
+    cart_item = (
+        db_session.query(CartItem)
+        .filter(CartItem.cart == cart_id, CartItem.product == product_id)
+        .first()
+    )
+    # TODO What if the cart item does not exist?
+    db_session.delete(cart_item)
+    db_session.commit()
+    return
+
+
 def set_cart_is_ready(db_session: DBSession, cart_id: int) -> None:
     """Set that the cart is ready for pickup."""
     cart = db_session.query(Cart).filter(Cart.id == cart_id).first()
@@ -91,3 +115,42 @@ def set_cart_is_delivered(db_session: DBSession, cart_id: int) -> None:
     cart.delivered = True
     db_session.commit()
     return
+
+
+def set_cart_is_payed(db_session: DBSession, cart_id: int) -> None:
+    """Set that the cart has been payed for."""
+    cart = db_session.query(Cart).filter(Cart.id == cart_id).first()
+    if cart is None:
+        print("Tried to set a cart to payed, but the cart does not exist.")
+        return
+    cart.payed = True
+    db_session.commit()
+    return
+
+
+def product_exists(db_session: DBSession, product_id: int) -> bool:
+    """Returns whether the product exists."""
+    return db_session.query(Product).filter(Product.id == product_id).first() != None
+
+
+def product_in_cart(db_session: DBSession, cart_id: int, product_id: int) -> bool:
+    """Returns whether the product is in the cart."""
+    return (
+        db_session.query(CartItem)
+        .filter(CartItem.cart == cart_id, CartItem.product == product_id)
+        .first()
+        != None
+    )
+
+
+def get_cart_item_from_product(
+    db_session: DBSession, cart_id: int, product_id: int
+) -> CartItem | None:
+    """Returns the cart item from the product in a cart.
+    If it is not present, returns None.
+    """
+    return (
+        db_session.query(CartItem)
+        .filter(CartItem.cart == cart_id, CartItem.product == product_id)
+        .first()
+    )
