@@ -89,6 +89,10 @@ inputs.forEach(function(input, index) {
                             }, 2000);
                         } else {
                             codeElement.innerHTML = 'Wrong code!';
+                            document.querySelectorAll('.inputs').forEach(function(input) {
+                                input.value = '';
+                            });
+                            document.getElementById('firstInput').focus();
                         }
                     }
                 }
