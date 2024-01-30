@@ -73,25 +73,55 @@ def get_product_by_id(db_session: DBSession, product_id: int) -> Product:
 def load_products_from_yaml(db_session: DBSession) -> None:
     """Load products from a yaml file configured in the config."""
 
-    products = import_products(Config.product_config_path) # type: ignore
+    products = import_products(Config.product_config_path)  # type: ignore
     for category in products:
         if db_session.query(Category).filter(Category.name == category.name).first():
-            category_db: Category = db_session.query(Category).filter(Category.name == category.name).first()
+            category_db: Category = (
+                db_session.query(Category)
+                .filter(Category.name == category.name)
+                .first()
+            )
             print(f"Category {category.name} already exists.")
         else:
             category_db = add_category(db_session, category.name, category.icon_path)
         if category_db is None:
             raise ValueError("Category could not be created.")
         for product in category.products:
-            if not db_session.query(Product).filter(Product.name == product.name).first():
+            if (
+                not db_session.query(Product)
+                .filter(Product.name == product.name)
+                .first()
+            ):
                 add_product(
                     db_session,
                     product.name,
                     product.description,
                     category_db.id,
                     product.price,
-                    "\n".join([f"{ingredient}:{amount}" for ingredient, amount in product.ingredients.items()]),
+                    "\n".join(
+                        [
+                            f"{ingredient}:{amount}"
+                            for ingredient, amount in product.ingredients.items()
+                        ]
+                    ),
                     product.unlock_time,
                 )
             else:
                 print(f"Product {product.name} already exists.")
+
+
+def get_all_products(db_session: DBSession) -> list[Product]:
+    """Get all products from the database.
+    NOTE: For the ordering page, use get_available_products.
+    """
+    return db_session.query(Product).all()
+
+
+def get_available_products(db_session: DBSession) -> list[Product]:
+    """Get all available products from the database."""
+    return db_session.query(Product).filter(Product.unlock_time <= datetime.now()).all()
+
+
+def get_categories(db_session: DBSession) -> list[Category]:
+    """Get all categories from the database."""
+    return db_session.query(Category).all()

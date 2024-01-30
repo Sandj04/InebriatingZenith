@@ -26,6 +26,11 @@ def code_exists(db_session: Session, code: int) -> bool:
     return db_session.query(User).filter(User.code == code).count() > 0
 
 
+def get_user_by_code(db_session: Session, code: int) -> User | None:
+    """Get a user by their code."""
+    return db_session.query(User).filter(User.code == code).first()
+
+
 def user_exists(db_session: Session, username: str) -> bool:
     """Check if a username exists in the database."""
     return db_session.query(User).filter(User.username == username).count() > 0
@@ -34,7 +39,8 @@ def user_exists(db_session: Session, username: str) -> bool:
 def create_session(db_session: Session, user_id: int) -> auth_Session:
     """Create a session for a user."""
     new_session = auth_Session(
-        user=user_id, hashed_token=src.utils.auth.hash_token(src.utils.auth.generate_token())
+        user=user_id,
+        hashed_token=src.utils.auth.hash_token(src.utils.auth.generate_token()),
     )
     db_session.add(new_session)
     db_session.commit()
@@ -99,20 +105,20 @@ def admin_password_valid(
     db_session: Session, admin_username: str, password: str
 ) -> bool:
     """Check if an admin password is valid."""
-    hashed_password = (
+    admin_target = (
         db_session.query(Admin).filter(Admin.username == admin_username).first()
     )  # Retrieve the hashed password from the admins table.
 
-    if hashed_password is None:  # Admin does not exist.
+    if admin_target is None:  # Admin does not exist.
         return False
 
-    return src.utils.auth.compare_passwords(password, hashed_password.password)
+    return src.utils.auth.compare_passwords(password, admin_target.hashed_password)
 
 
-def create_admin_session(db_session: Session, admin_username: str) -> AdminSession:
+def create_admin_session(db_session: Session, admin_id: int) -> AdminSession:
     """Create a session for an admin."""
-    new_session = auth_Session(
-        admin=admin_username,
+    new_session = AdminSession(
+        admin=admin_id,
         hashed_token=src.utils.auth.hash_token(src.utils.auth.generate_token()),
     )
     db_session.add(new_session)
@@ -120,23 +126,29 @@ def create_admin_session(db_session: Session, admin_username: str) -> AdminSessi
     return new_session
 
 
-def admin_session_valid(db_session: Session, admin_username: str, token: str) -> bool:
+def get_admin_id_from_username(db_session: Session, admin_username: str) -> int | None:
+    """Get the ID of an admin from their username."""
+    result = db_session.query(Admin).filter(Admin.username == admin_username).first()
+    return result.id if result is not None else None
+
+
+def admin_session_valid(db_session: Session, hashed_token: str) -> bool:
     """Returns True if a session token and admin_username are valid.
     This is the main function used for admin authentication using a session token.
     """
-    hashed_token = src.utils.auth.hash_token(token)
     return (  # TODO Should we retrieve the session token and check it on the server?
-        db_session.query(auth_Session)
+        db_session.query(AdminSession)
         .filter(
-            auth_Session.admin == admin_username,
-            auth_Session.hashed_token == hashed_token,
+            AdminSession.hashed_token == hashed_token,
         )
         .count()
         == 1
     )
 
 
-def setup_root_admin(db_session: Session, admin_username: str, admin_password: str) -> None:
+def setup_root_admin(
+    db_session: Session, admin_username: str, admin_password: str
+) -> None:
     """Set up the root admin user. If the root admin already exists, do nothing."""
     if admin_exists(db_session, admin_username):
         print("Root admin already exists.")

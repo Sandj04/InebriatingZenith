@@ -45,7 +45,7 @@ class Session(Base):
         nullable=False,
     )  # The ID of the user.
     hashed_token: Mapped[str] = sqlalchemy.Column(
-        sqlalchemy.String(30),
+        sqlalchemy.String(64),
         nullable=False,  # TODO Index this column.
     )  # The token of the user's session.
 
@@ -242,7 +242,7 @@ class AdminSession(Base):
         nullable=False,
     )  # The ID of the admin.
     hashed_token: Mapped[str] = sqlalchemy.Column(
-        sqlalchemy.String(30),
+        sqlalchemy.String(64),
         nullable=False,  # TODO Index this column.
     )  # The token of the admin's session.
 
