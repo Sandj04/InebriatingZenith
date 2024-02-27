@@ -12,6 +12,7 @@ from src.db import tasks as TasksDB
 from src.db import econ as EconDB
 from src import easy
 from src.admin_client import admin_blueprint
+from src.announcement import announcement_blueprint
 import src.utils.config
 from src.utils.realtime import OrderQueue
 
@@ -20,7 +21,6 @@ db_engine = sqlalchemy.create_engine(
     echo=True,  # ? Set to True to see SQL queries in the console.
 )
 
-# Globals
 # --------------------------------------------------------------------------------------
 # Start a flask app in development mode where the templates are reloaded upon change.
 app = flask.Flask(
@@ -30,6 +30,7 @@ app = flask.Flask(
 )
 
 app.register_blueprint(admin_blueprint)
+app.register_blueprint(announcement_blueprint)
 
 # Initialize connection to database.
 db_conn = db_engine.connect()
@@ -109,9 +110,11 @@ def authentication_check():
     # Paths that do not require authentication.
     PATH_EXCLUSIONS = ["/", "/api/login"]
 
-    # Exclude static files
+    # Exclude view specific paths.
     if request.path.startswith("/static") or request.path in PATH_EXCLUSIONS:
         return
+
+    return # TODO Remove this line.
 
     session_token = request.cookies.get("session_token")
     user_id = request.cookies.get("user")

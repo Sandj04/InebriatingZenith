@@ -1,0 +1,53 @@
+{% extends "announcement/index.html" %}
+
+{% block template_styles %}
+<link rel="stylesheet" href="/static/styles/announcement/ns.css">
+{% endblock %}
+
+{% block main %}
+<div class="viewport">
+    <header>
+        <div class="container">
+            <div class="left">
+                <div id="status-message">Wordt bereid</div>
+            </div>
+            <div class="right">
+                <div id="party-name">New Year</div>
+                <div class="party-image">
+                    <img id="party-image" src="/static/images/ns-logo-blue.png" alt="NS logo" width="281" height="111">
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div id="name">
+                Alexander V.
+            </div>
+            <div id="products">
+                via Coca Cola, Orange Juice, Screwdriver, Rosé, Coca Cola, Orange Juice, yes...
+            </div>
+            <div id="product-images">
+                <div class="images">
+                    <div class="img"></div>
+                    <div class="img"></div>
+                    <div class="img"></div>
+                    <div class="img"></div>
+                    <div class="img"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="label">
+                Volgende bestelling:
+            </div>
+            <div id="next-order">
+                6x Sander M.
+            </div>
+        </div>
+    </footer>
+</div>
+{% endblock %}
+
